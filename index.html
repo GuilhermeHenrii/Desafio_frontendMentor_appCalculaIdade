@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age app</title>
+    <link rel="stylesheet" href="./design/style.css">
+</head>
+<body>
+    <main class="card">
+        <form class="form">
+            <div class="label-group-one">
+                <label for="day">DAY</label>
+                <input type="text" id="day" class="input">
+            </div>
+
+            <div class="label-group-two">
+                <label for="month">MONTH</label>
+                <input type="text" id="month" class="input">
+            </div>
+        
+            <div class="label-group-thre">
+                <label for="year">YEAR</label>
+                <input type="text" id="year" class="input">
+            </div>
+        </form>
+        <div class="line"></div>
+        <div class="arrow">
+            <img src="./images/icon-arrow.svg" alt="arrow" class="arrow-image arrow">
+        </div>
+
+        <section class="age-result">
+            <h1>
+                <span class="dynamic-numbers"></span>
+                years
+            </h1>
+            <h1>
+                <span class="dynamic-numbers"></span>
+                months
+            </h1>
+            <h1>
+                <span class="dynamic-numbers"></span>
+                days
+            </h1>
+        </section>
+    </main>
+    <script src="./script/index.js"></script>
+</body>
+</html>

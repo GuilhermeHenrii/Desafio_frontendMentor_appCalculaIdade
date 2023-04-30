@@ -1,0 +1,112 @@
+:root{
+    --White: hsl(0, 0%, 100%);
+    --Off-white: hsl(0, 0%, 94%);
+    --Light-grey: hsl(0, 0%, 86%);
+    --Smokey-grey: hsl(0, 1%, 44%);
+    --Off-black: hsl(0, 0%, 8%);
+    --Purple: hsl(259, 100%, 65%);
+    --Light-red: hsl(0, 100%, 67%);
+}
+
+
+*{
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+}
+
+body, html{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: var(--Light-grey);
+}
+
+.card{
+    background-color: var(--White);
+    width: clamp(300px, 50%, 600px);
+    height: clamp(200px, 65%, 400px);
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 15px;
+    border-bottom-right-radius: clamp(80px, 30%, 150px);
+}
+
+.form{
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+}
+
+.label-group-one, .label-group-two, .label-group-thre{
+    display: flex;
+    flex-direction: column;
+    margin-top: 25px;
+    margin-left: 40px;
+}
+
+.input{
+    width: 100px;
+    height: 30px;
+    border-radius: 5px;
+    border-color: var(--Light-grey);
+    border-style: solid;
+    border-width: 0.5px;
+    outline: none;
+    margin-top: 8px;
+    font-size: 20px;
+    font-weight: 600;
+    padding-left: 10px;
+}
+
+.input:focus{
+    border-color: var(--Purple);
+}
+
+.line{
+    display: inline-block;
+    background-color: var(--Light-grey);
+    width: 70%;
+    height: 1px;
+    margin-top: 30px;
+    margin-left: 40px;
+}
+
+.arrow{
+    display: inline-block;
+    background-color: var(--Off-black);
+    border-radius: 100%;
+    width: 65px;
+    height: 60px;
+    position: absolute;
+    cursor: pointer;
+}
+
+.arrow-image{
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 35px;
+}
+
+.age-result{
+    /* background-color: red; */
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    margin-left: 40px;
+    font-size: 3em;
+}
+
+.dynamic-numbers{
+    opacity: 0;
+    transition: opacity 0.9s ease-in-out;
+}
+
+.result-color{
+    color: var(--Purple);
+    opacity: 1;
+}
