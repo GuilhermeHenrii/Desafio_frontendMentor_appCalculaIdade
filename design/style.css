@@ -101,7 +101,7 @@ body, html{
     font-size: 3em;
 }
 
-.dynamic-numbers{
+.dynamic-numbers, .dynamic-text{
     opacity: 0;
     transition: opacity 0.9s ease-in-out;
 }
@@ -109,4 +109,8 @@ body, html{
 .result-color{
     color: var(--Purple);
     opacity: 1;
+}
+
+.result-text-color{
+    opacity: 1; 
 }
