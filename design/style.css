@@ -76,7 +76,7 @@ body, html{
 
 .arrow{
     display: inline-block;
-    background-color: var(--Off-black);
+    background-color: var(--Purple);
     border-radius: 100%;
     width: 65px;
     height: 60px;
@@ -101,9 +101,10 @@ body, html{
     font-size: 3em;
 }
 
-.dynamic-numbers, .dynamic-text{
+.dynamic-numbers /*, .dynamic-text*/{
     opacity: 0;
-    transition: opacity 0.9s ease-in-out;
+    transition: opacity 1s ease-in-out;
+    color: var(--Purple);
 }
 
 .result-color{
@@ -111,6 +112,11 @@ body, html{
     opacity: 1;
 }
 
-.result-text-color{
+/* .result-text-color{
     opacity: 1; 
+} */
+
+.error-empty{
+    border-color: var(--Light-red);
+    font-style: var(--Light-red);
 }

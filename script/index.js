@@ -1,12 +1,63 @@
-const inputsAge = document.querySelectorAll('.input');
-const arrowBtn = document.querySelector('.arrow');
-const dynamicNumbers = document.querySelectorAll('.dynamic-numbers');
-const dynamicText = document.querySelectorAll('.dynamic-text');
+const inputDay = document.querySelector('#day');
+const inputMonth = document.querySelector('#month');
+const inputYear = document.querySelector('#year');
+const btnArrow = document.querySelector('.arrow');
 
-function getBirthDateUsers(year, month, day) {
-    const birthDateUsers = new Date(`${year}-${month}-${day}`);
-    return birthDateUsers;
-};
+
+btnArrow.addEventListener('click', function () {
+    const day = inputDay.value;
+    const month = inputMonth.value;
+    const year = inputYear.value;
+    const birthDateUser = agePtBr(`${year}-${month}-${day}`);
+
+    if(validarDataBrasileira((birthDateUser))){
+        console.log(ageCalculate(birthDateUser));
+    };
+    console.log('errado');
+});
+
+
+function validarDataBrasileira(data) {
+    let regex = /^(\d{2})-(\d{2})-(\d{4})$/;
+    const dtAtual = new Date().getFullYear();
+    if (!regex.test(data)) {
+        return false; // não corresponde ao formato dd-mm-aa
+    }
+    let partesData = data.split("-");
+    let dia = parseInt(partesData[0]);
+    let mes = parseInt(partesData[1]);
+    let ano = parseInt(partesData[2]);
+    if (ano < 0 || ano > dtAtual) {
+        return console.log(false); // ano deve estar entre 00 e 99
+    }
+    if (mes < 1 || mes > 12) {
+        return false; // mês deve estar entre 01 e 12
+    }
+    if (dia < 1 || dia > 31) {
+        return false; // dia deve estar entre 01 e 31
+    }
+    if ((mes === 4 || mes === 6 || mes === 9 || mes === 11) && dia > 30) {
+        return false; // meses com 30 dias
+    }
+    if (mes === 2) {
+        let bissexto = ano % 4 === 0 && (ano % 100 !== 0 || ano % 400 === 0);
+        if (bissexto && dia > 29 || !bissexto && dia > 28) {
+            return false; // fevereiro com 28 ou 29 dias
+        }
+    }
+    return true;
+}
+
+
+function agePtBr(dateUser){
+    const date = new Date(dateUser); // data de aniversario do usuario
+    const dateBr = date.toLocaleDateString('pt-BR');
+    const dateBrSliceOne = dateBr.slice('/', '-');
+    const dateBrSliceTwo = dateBrSliceOne.slice('/', '-');
+    console.log(dateBrSliceTwo);
+    //usar algum memotodo para deixar a data no formaro dd-mm-yyy
+    // resultado: '11/05/2023'
+}
 
 
 function ageCalculate(birthday) {
@@ -21,33 +72,5 @@ function ageCalculate(birthday) {
 
     }
     const ageArr = Object.values(age);
-    return ageArr;
+    return console.log(ageArr.join('-'));
 };
-
-function isValidDate(getBirthDateUsers) {
-    const dateValid = Date.parse(getBirthDateUsers);
-    return !isNaN(dateValid);
-};
-
-document.addEventListener('click', (e) => {
-    const el = e.target;
-    const today = new Date();
-    if (el.classList.contains('arrow')) {
-        const birthYear = inputsAge[2].value;
-        const birthMonth = inputsAge[1].value;
-        const birthDay = inputsAge[0].value;
-
-        const euaBirthDate = `${birthYear}-${birthMonth}-${birthDay}`;
-        if (!isValidDate(euaBirthDate) || birthYear > today.getFullYear()) {
-            alert('Insira uma data válida');
-            return;
-        }
-    
-    const ageArr = ageCalculate(getBirthDateUsers(birthYear, birthMonth, birthDay));
-    const getDynamicNumbers = ageArr.forEach((element, index) => {
-        dynamicNumbers[index].classList.add('result-color');
-        dynamicNumbers[index].innerHTML = element;
-        dynamicText[index].classList.add('result-text-color');
-    });
-}
-});

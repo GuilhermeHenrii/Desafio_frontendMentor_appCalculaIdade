@@ -12,17 +12,20 @@
         <form class="form">
             <div class="label-group-one">
                 <label for="day">DAY</label>
-                <input type="text" id="day" class="input">
+                <input type="text" id="day" class="input" placeholder="DD" autocomplete="off">
+                <p></p>
             </div>
 
             <div class="label-group-two">
                 <label for="month">MONTH</label>
-                <input type="text" id="month" class="input">
+                <input type="text" id="month" class="input" placeholder="MM" autocomplete="off">
+                <p></p>
             </div>
         
             <div class="label-group-thre">
                 <label for="year">YEAR</label>
-                <input type="text" id="year" class="input">
+                <input type="text" id="year" class="input" placeholder="YYYY" autocomplete="off">
+                <p></p>
             </div>
         </form>
         <div class="line"></div>
@@ -33,15 +36,15 @@
         <section class="age-result">
             <h1 class="dynamic-text">
                 <span class="dynamic-numbers"></span>
-                years
+                <span class="result-color dynamic-line">- -</span> years
             </h1>
             <h1 class="dynamic-text">
                 <span class="dynamic-numbers"></span>
-                months
+                <span class="result-color dynamic-line">- -</span> months
             </h1>
             <h1 class="dynamic-text">
                 <span class="dynamic-numbers"></span>
-                days
+                <span class="result-color dynamic-line">- -</span> days
             </h1>
         </section>
     </main>
