@@ -8,17 +8,22 @@ btnArrow.addEventListener('click', function () {
     const day = inputDay.value;
     const month = inputMonth.value;
     const year = inputYear.value;
-    const birthDateUser = agePtBr(`${year}-${month}-${day}`);
+    const birthDateUser = new Date(`${year}-${month}-${day}`);
+    console.log (birthDateUser);
+    const validDatePtBr = validarDataBrasileira(agePtBr(birthDateUser));
+    console.log(validDatePtBr);
 
-    if(validarDataBrasileira((birthDateUser))){
-        console.log(ageCalculate(birthDateUser));
-    };
-    console.log('errado');
+    if(validDatePtBr){
+        console.log('oi')
+        console.log(ageCalculate(validDatePtBr));
+    }else{
+        console.log('errado');
+    }
 });
 
 
-function validarDataBrasileira(data) {
-    let regex = /^(\d{2})-(\d{2})-(\d{4})$/;
+function validarDataBrasileira(data){
+    let regex = /^(\d{2})\/(\d{2})\/(\d{4})$/;
     const dtAtual = new Date().getFullYear();
     if (!regex.test(data)) {
         return false; // não corresponde ao formato dd-mm-aa
@@ -45,23 +50,21 @@ function validarDataBrasileira(data) {
             return false; // fevereiro com 28 ou 29 dias
         }
     }
-    return true;
+    console.log(data);
+    return data;
 }
 
 
 function agePtBr(dateUser){
-    const date = new Date(dateUser); // data de aniversario do usuario
-    const dateBr = date.toLocaleDateString('pt-BR');
-    const dateBrSliceOne = dateBr.slice('/', '-');
-    const dateBrSliceTwo = dateBrSliceOne.slice('/', '-');
-    console.log(dateBrSliceTwo);
-    //usar algum memotodo para deixar a data no formaro dd-mm-yyy
-    // resultado: '11/05/2023'
+    const dateBr = dateUser.toLocaleDateString('pt-BR');
+    console.log(dateBr); //13-05-2002
+    return dateBr;
 }
 
 
 function ageCalculate(birthday) {
-    const ageDiffMs = Date.now() - birthday.getTime();
+    const date = new Date(birthday);
+    const ageDiffMs = Date.now() - date.getTime();
     const ageDate = new Date(ageDiffMs);
     const age = {
         years: Math.floor((ageDate / (365.25 * 24 * 60 * 60 * 1000))),
@@ -71,6 +74,7 @@ function ageCalculate(birthday) {
         days: Math.floor(((ageDate % (30.44 * 24 * 60 * 60 * 1000)) / (24 * 60 * 60 * 1000)))
 
     }
+    console.log(ageDiffMs);
     const ageArr = Object.values(age);
-    return console.log(ageArr.join('-'));
+    return age;
 };
