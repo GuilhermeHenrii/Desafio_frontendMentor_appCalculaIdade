@@ -8,9 +8,15 @@ btnArrow.addEventListener('click', function () {
     const day = inputDay.value;
     const month = inputMonth.value;
     const year = inputYear.value;
-    const birthDateUser = new Date(`${year}-${month}-${day}`);
-    console.log (birthDateUser);
-    const validDatePtBr = validarDataBrasileira(agePtBr(birthDateUser));
+    const birthDateUserBr = new Date(`${year}-${month}-${day}`);
+    birthDateUserBr.toLocaleDateString('pt-br',{
+        day:"2-digit",
+        month:"2-digit",
+        year:"numeric",
+        timeZone: 
+    })
+    console.log (birthDateUserBr);
+    const validDatePtBr = validarDataBrasileira(agePtBr(birthDateUserBr));
     console.log(validDatePtBr);
 
     if(validDatePtBr){
