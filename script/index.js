@@ -13,7 +13,7 @@ btnArrow.addEventListener('click', function () {
         day:"2-digit",
         month:"2-digit",
         year:"numeric",
-        timeZone: 
+        timeZone: 'America/Sao_Paulo'
     })
     console.log (birthDateUserBr);
     const validDatePtBr = validarDataBrasileira(agePtBr(birthDateUserBr));
