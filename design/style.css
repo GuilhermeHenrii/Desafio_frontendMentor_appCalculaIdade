@@ -126,7 +126,7 @@ body, html{
 }
 
 .dynamic-numbers /*, .dynamic-text*/{
-    opacity: 0;
+    opacity: 1;
     transition: opacity 1s ease-in-out;
     color: var(--Purple);
 }

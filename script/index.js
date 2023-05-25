@@ -8,20 +8,27 @@ btnArrow.addEventListener('click', function () {
     const day = inputDay.value;
     const month = inputMonth.value;
     const year = inputYear.value;
-    const birthDateUserBr = new Date(`${year}-${month}-${day}`);
-    birthDateUserBr.toLocaleDateString('pt-br',{
+    const birthDateUserBr = new Date(`${year}-${month}-${day}T00:00:00-03:00`);
+    const formatedDate = birthDateUserBr.toLocaleDateString('pt-br',{
         day:"2-digit",
         month:"2-digit",
         year:"numeric",
         timeZone: 'America/Sao_Paulo'
-    })
-    console.log (birthDateUserBr);
-    const validDatePtBr = validarDataBrasileira(agePtBr(birthDateUserBr));
+    });
+    console.log (formatedDate instanceof Date);
+
+    const validDatePtBr = validarDataBrasileira(formatedDate);
     console.log(validDatePtBr);
+    const dtArr = ageCalculate(validDatePtBr);
 
     if(validDatePtBr){
         console.log('oi')
         console.log(ageCalculate(validDatePtBr));
+        const dynamicNumbers = document.querySelectorAll('.dynamic-numbers');
+        for(let numbers in dynamicNumbers){
+            dynamicNumbers[numbers].innerHTML = dtArr[numbers];
+        }
+
     }else{
         console.log('errado');
     }
@@ -32,7 +39,7 @@ function validarDataBrasileira(data){
     let regex = /^(\d{2})\/(\d{2})\/(\d{4})$/;
     const dtAtual = new Date().getFullYear();
     if (!regex.test(data)) {
-        return false; // não corresponde ao formato dd-mm-aa
+        return alert('data falsa false'); // não corresponde ao formato dd-mm-aa
     }
     let partesData = data.split("-");
     let dia = parseInt(partesData[0]);
@@ -57,20 +64,19 @@ function validarDataBrasileira(data){
         }
     }
     console.log(data);
-    return data;
-}
-
-
-function agePtBr(dateUser){
-    const dateBr = dateUser.toLocaleDateString('pt-BR');
-    console.log(dateBr); //13-05-2002
-    return dateBr;
+    const dtBrForEua = new Date(`${inputYear.value}-${inputMonth.value}-${inputDay.value}`);
+    return dtBrForEua;
 }
 
 
 function ageCalculate(birthday) {
-    const date = new Date(birthday);
-    const ageDiffMs = Date.now() - date.getTime();
+    birthday.toLocaleDateString('pt-br', {
+        day:"2-digit",
+        month:"2-digit",
+        year:"numeric",
+        timeZone: 'America/Sao_Paulo'
+    })
+    const ageDiffMs = Date.now() - birthday.getTime();
     const ageDate = new Date(ageDiffMs);
     const age = {
         years: Math.floor((ageDate / (365.25 * 24 * 60 * 60 * 1000))),
@@ -82,5 +88,5 @@ function ageCalculate(birthday) {
     }
     console.log(ageDiffMs);
     const ageArr = Object.values(age);
-    return age;
+    return ageArr;
 };
