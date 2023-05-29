@@ -1,92 +1,131 @@
-const inputDay = document.querySelector('#day');
-const inputMonth = document.querySelector('#month');
-const inputYear = document.querySelector('#year');
-const btnArrow = document.querySelector('.arrow');
+class Age {
+    constructor() {
+        this.form = document.querySelector('.form');
+        this.button = document.querySelector('.btn-div');
+        this.events();
+    };
 
+    events() {
+        this.button.addEventListener('click', e => {
+            this.handleClick(e);
+        });
+    };
 
-btnArrow.addEventListener('click', function () {
-    const day = inputDay.value;
-    const month = inputMonth.value;
-    const year = inputYear.value;
-    const birthDateUserBr = new Date(`${year}-${month}-${day}T00:00:00-03:00`);
-    const formatedDate = birthDateUserBr.toLocaleDateString('pt-br',{
-        day:"2-digit",
-        month:"2-digit",
-        year:"numeric",
-        timeZone: 'America/Sao_Paulo'
-    });
-    console.log (formatedDate instanceof Date);
+    handleClick(e) {
+        const day = this.form.querySelector('#day');
+        const month = this.form.querySelector('#month');
+        const year = this.form.querySelector('#year');
+        this.acceptedDate = new Date(`${year.value}-${month.value}-${day.value}T00:00:00-03:00`);
+        console.log(this.acceptedDate);
 
-    const validDatePtBr = validarDataBrasileira(formatedDate);
-    console.log(validDatePtBr);
-    const dtArr = ageCalculate(validDatePtBr);
+        const fieldValid = this.fieldIsValid();
+        const dateValid = this.dateBrIsValid();
+        const calculateAge = this.calculateAge(this.acceptedDate);
 
-    if(validDatePtBr){
-        console.log('oi')
-        console.log(ageCalculate(validDatePtBr));
-        const dynamicNumbers = document.querySelectorAll('.dynamic-numbers');
-        for(let numbers in dynamicNumbers){
-            dynamicNumbers[numbers].innerHTML = dtArr[numbers];
+        // if(fieldValid && dateValid){
+        //     alert('data e campos validos');
+        // }
+    };
+
+    fieldIsValid() {
+        let valid = true;
+
+        for (let errorTxt of this.form.querySelectorAll('.error-text')) {
+            errorTxt.remove();
         }
 
-    }else{
-        console.log('errado');
-    }
-});
+        for (let field of this.form.querySelectorAll('.input')) {
+            const label = field.previousElementSibling.innerText;
 
+            if (!field.value) {
+                this.createError(field, `Field ${label.toLowerCase()} empty`);
+                valid = false;
+            }
 
-function validarDataBrasileira(data){
-    let regex = /^(\d{2})\/(\d{2})\/(\d{4})$/;
-    const dtAtual = new Date().getFullYear();
-    if (!regex.test(data)) {
-        return alert('data falsa false'); // não corresponde ao formato dd-mm-aa
-    }
-    let partesData = data.split("-");
-    let dia = parseInt(partesData[0]);
-    let mes = parseInt(partesData[1]);
-    let ano = parseInt(partesData[2]);
-    if (ano < 0 || ano > dtAtual) {
-        return console.log(false); // ano deve estar entre 00 e 99
-    }
-    if (mes < 1 || mes > 12) {
-        return false; // mês deve estar entre 01 e 12
-    }
-    if (dia < 1 || dia > 31) {
-        return false; // dia deve estar entre 01 e 31
-    }
-    if ((mes === 4 || mes === 6 || mes === 9 || mes === 11) && dia > 30) {
-        return false; // meses com 30 dias
-    }
-    if (mes === 2) {
-        let bissexto = ano % 4 === 0 && (ano % 100 !== 0 || ano % 400 === 0);
-        if (bissexto && dia > 29 || !bissexto && dia > 28) {
-            return false; // fevereiro com 28 ou 29 dias
+            if (isNaN(Number(field.value))) {
+                this.createError(field, `Field ${label.toLowerCase()} is not a valid number`);
+                valid = false;
+            }
         }
-    }
-    console.log(data);
-    const dtBrForEua = new Date(`${inputYear.value}-${inputMonth.value}-${inputDay.value}`);
-    return dtBrForEua;
+        return valid;
+    };
+
+    dateBrIsValid() {
+        const dateBr = this.acceptedDate.toLocaleDateString('pt-br', {
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+            timeZone: 'America/Sao_Paulo'
+        });
+
+        console.log(dateBr);
+
+        let regex = /^(\d{2})\/(\d{2})\/(\d{4})$/;
+        const currentDate = new Date().getFullYear();
+        if (!regex.test(dateBr)) {
+            return console.log('data não corresponde ao formato dd-mm-aaaa'); // não corresponde ao formato dd-mm-aaaa
+        };
+
+        let dateParts = dateBr.split("-");
+        let day = parseInt(dateParts[0]);
+        let month = parseInt(dateParts[1]);
+        let year = parseInt(dateParts[2]);
+        console.log(dateParts);
+
+        if (day < 0 || day > currentDate) {
+            return console.log(false); // ano deve estar entre 00 e 99
+        };
+        if (month < 1 || month > 12) {
+            return false; // mês deve estar entre 01 e 12
+        };
+        if (day < 1 || day > 31) {
+            return false; // dia deve estar entre 01 e 31
+        };
+        if ((month === 4 || month === 6 || month === 9 || month === 11) && day > 30) {
+            return false; // meses com 30 dias
+        };
+        if (month === 2) {
+            let leapYear = year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0);
+            if (leapYear && day > 29 || !leapYear && day > 28) {
+                return false; // fevereiro com 28 ou 29 dias
+            };
+        };
+        console.log(dateBr);
+        // const dtBrForEua = new Date(`${this.year.value}-${this.month.value}-${this.day.value}T00:00:00-03:00`);
+        return this.acceptedDate;
+    };
+
+    calculateAge(dateOfBirth) {
+        dateOfBirth.toLocaleDateString('pt-br', {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+            timeZone: 'America/Sao_Paulo'
+        })
+        console.log(dateOfBirth instanceof Date);
+        const ageDiffMs = Date.now() - dateOfBirth.getTime();
+        const ageDate = new Date(ageDiffMs);
+        const age = {
+            years: Math.floor((ageDate / (365.25 * 24 * 60 * 60 * 1000))),
+
+            months: Math.floor(((ageDate % (365.25 * 24 * 60 * 60 * 1000)) / (30.44 * 24 * 60 * 60 * 1000))),
+
+            days: Math.floor(((ageDate % (30.44 * 24 * 60 * 60 * 1000)) / (24 * 60 * 60 * 1000)))
+
+        }
+        console.log(ageDiffMs);
+        const ageArr = Object.values(age);
+        console.log(ageArr)
+        return ageArr;
+    };
+
+    createError(field, msg) {
+        const div = document.createElement('div');
+        div.innerHTML = msg;
+        div.classList.add('error-text');
+        field.insertAdjacentElement('afterend', div);
+    };
 }
 
 
-function ageCalculate(birthday) {
-    birthday.toLocaleDateString('pt-br', {
-        day:"2-digit",
-        month:"2-digit",
-        year:"numeric",
-        timeZone: 'America/Sao_Paulo'
-    })
-    const ageDiffMs = Date.now() - birthday.getTime();
-    const ageDate = new Date(ageDiffMs);
-    const age = {
-        years: Math.floor((ageDate / (365.25 * 24 * 60 * 60 * 1000))),
-
-        months: Math.floor(((ageDate % (365.25 * 24 * 60 * 60 * 1000)) / (30.44 * 24 * 60 * 60 * 1000))),
-
-        days: Math.floor(((ageDate % (30.44 * 24 * 60 * 60 * 1000)) / (24 * 60 * 60 * 1000)))
-
-    }
-    console.log(ageDiffMs);
-    const ageArr = Object.values(age);
-    return ageArr;
-};
+const userAge = new Age();
