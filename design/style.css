@@ -144,3 +144,8 @@ body, html{
     border-color: var(--Light-red);
     font-style: var(--Light-red);
 }
+
+.error-text{
+    color: red;
+    font-size: 15px;
+}

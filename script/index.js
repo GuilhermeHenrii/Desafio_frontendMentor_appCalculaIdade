@@ -2,6 +2,8 @@ class Age {
     constructor() {
         this.form = document.querySelector('.form');
         this.button = document.querySelector('.btn-div');
+        this.currentDate = new Date().getFullYear();
+        this.section = document.querySelectorAll('.dynamic-line');
         this.events();
     };
 
@@ -17,16 +19,48 @@ class Age {
         const year = this.form.querySelector('#year');
         this.acceptedDate = new Date(`${year.value}-${month.value}-${day.value}T00:00:00-03:00`);
 
+        const fieldEmpty = this.fieldIsEmpty();
+        if (!fieldEmpty) return;
+
         const fieldValid = this.fieldIsValid();
         const dateValid = this.dateBrIsValid();
         const calculateAge = this.calculateAge(this.acceptedDate);
 
-
-        console.log(calculateAge);
-        // fieldValid == true ? alert('campos ok'): alert('campos nao ok');
-        // dateValid === true ? alert('datas ok'): alert('campos de data nao ok');
-        // calculateAge === true ? alert('calculo feito') : alert('calculo nao feito');
+        if (calculateAge.some((value) => { //O método some() é uma função de array em JavaScript que verifica se pelo menos um elemento do array satisfaz uma determinada condição. Ele itera sobre os elementos do array e retorna true assim que encontrar o primeiro elemento que atenda à condição especificada. Caso nenhum elemento satisfaça a condição, o método retorna false. Ele para de iterar, assim que encontra o primeiro elemento
+            return isNaN(value);
+        }) === false) {
+            let i = 0;
+            for (let date of this.section) {
+                //date.remove(); 
+                date.innerHTML = calculateAge[i];
+                i++;
+            }
+        }
     };
+
+    fieldIsEmpty() {
+        let valid = true;
+
+        for (let errorTxt of this.form.querySelectorAll('.error-text')) {
+            errorTxt.remove();
+        }
+
+        for (let field of this.form.querySelectorAll('.input')) {
+            const label = field.previousElementSibling;
+
+            if (!field.value) {
+                this.createError(field, `Field ${label.toLowerCase} empty`);
+                valid = false;
+            }
+
+            if (isNaN(Number(field.value))) {
+                this.createError(field, `Field ${label.toLowerCase} is not a valid number`);
+                valid = false;
+            }
+        }
+
+        return valid;
+    }
 
     fieldIsValid() {
         let valid = true;
@@ -38,38 +72,28 @@ class Age {
         for (let field of this.form.querySelectorAll('.input')) {
             const label = field.previousElementSibling.innerText;
 
-            if(field.getAttribute('id') === 'day'){
+            if (field.getAttribute('id') === 'day') {
                 const valueOfday = this.form.querySelector('#day');
-                if(valueOfday.value.length !== 2){
+                if (valueOfday.value.length !== 2 || valueOfday.value < 1 || valueOfday.value > 31) {
                     valid = false;
-                    this.createError(field, `O campo ${label} deve conter 2 caracteres`);
+                    this.createError(field, `O campo ${label} está inválido`);
                 }
             }
 
-            if(field.getAttribute('id') === 'month'){
+            if (field.getAttribute('id') === 'month') {
                 const valueOfMonth = this.form.querySelector('#month');
-                if(valueOfMonth.value.length !== 2){
+                if (valueOfMonth.value.length !== 2 || valueOfMonth.value < 1 || valueOfMonth.value > 12) {
                     valid = false;
-                    this.createError(field, `O campo ${label} deve conter 2 caracteres`);
+                    this.createError(field, `O campo ${label} está inválido`);
                 }
             }
 
-            if(field.getAttribute('id') === 'year'){
-                const valueOfday = this.form.querySelector('#year');
-                if(valueOfday.value.length !== 4){
+            if (field.getAttribute('id') === 'year') {
+                const valueOfYear = this.form.querySelector('#year');
+                if (valueOfYear.value.length !== 4 || valueOfYear.value > this.currentDate) {
                     valid = false;
-                    this.createError(field, `O campo ${label} deve conter 4 caracteres`);
+                    this.createError(field, `O campo ${label} está inválido`);
                 }
-            }
-            
-            if (!field.value) {
-                this.createError(field, `Field ${label.toLowerCase()} empty`);
-                valid = false;
-            }
-
-            if (isNaN(Number(field.value))) {
-                this.createError(field, `Field ${label.toLowerCase()} is not a valid number`);
-                valid = false;
             }
         }
 
@@ -89,7 +113,7 @@ class Age {
         const currentDate = new Date().getFullYear();
         if (!regex.test(dateBr)) {
             valid = false;
-            return console.log('data não corresponde ao formato dd-mm-aaaa');// não corresponde ao formato dd-mm-aaaa
+            return false; // não corresponde ao formato dd-mm-aaaa
         };
 
         let dateParts = dateBr.split("-");
@@ -99,7 +123,7 @@ class Age {
 
         if (year < 0 || year > currentDate) {
             valid = false;
-            return console.log(false); // ano deve estar entre 00 e 99
+            return false; // ano deve estar entre 00 e 99
         };
         if (month < 1 || month > 12) {
             valid = false;
@@ -124,13 +148,14 @@ class Age {
     };
 
     calculateAge(dateOfBirth) {
-        let valid = true;
         dateOfBirth.toLocaleDateString('pt-br', {
             day: "2-digit",
             month: "2-digit",
             year: "numeric",
             timeZone: 'America/Sao_Paulo'
         });
+
+        console.log(dateOfBirth);
         const ageDiffMs = Date.now() - dateOfBirth.getTime();
         const ageDate = new Date(ageDiffMs);
         const age = {
