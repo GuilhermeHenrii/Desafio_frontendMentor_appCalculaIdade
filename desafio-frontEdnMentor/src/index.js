@@ -23,6 +23,8 @@ class Age {
         if (!fieldEmpty) return;
 
         const fieldValid = this.fieldIsValid();
+        if (!fieldValid) return;
+
         const dateValid = this.dateBrIsValid();
         const calculateAge = this.calculateAge(this.acceptedDate);
 
@@ -46,10 +48,10 @@ class Age {
         }
 
         for (let field of this.form.querySelectorAll('.input')) {
-            const label = field.previousElementSibling;
+            const label = field.previousElementSibling.innerText;
 
             if (!field.value) {
-                this.createError(field, `Field ${label.toLowerCase} empty`);
+                this.createError(field, `Field ${label} empty`);
                 valid = false;
             }
 
