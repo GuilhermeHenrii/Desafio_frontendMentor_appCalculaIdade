@@ -22,10 +22,9 @@ class Age {
         const fieldEmpty = this.fieldIsEmpty();
         if (!fieldEmpty) return;
 
-        const fieldValid = this.fieldIsValid();
-        if (!fieldValid) return;
-
         const dateValid = this.dateBrIsValid();
+        if(!dateValid) return;
+
         const calculateAge = this.calculateAge(this.acceptedDate);
 
         if (calculateAge.some((value) => { //O método some() é uma função de array em JavaScript que verifica se pelo menos um elemento do array satisfaz uma determinada condição. Ele itera sobre os elementos do array e retorna true assim que encontrar o primeiro elemento que atenda à condição especificada. Caso nenhum elemento satisfaça a condição, o método retorna false. Ele para de iterar, assim que encontra o primeiro elemento
@@ -64,43 +63,6 @@ class Age {
         return valid;
     }
 
-    fieldIsValid() {
-        let valid = true;
-
-        for (let errorTxt of this.form.querySelectorAll('.error-text')) {
-            errorTxt.remove();
-        }
-
-        for (let field of this.form.querySelectorAll('.input')) {
-            const label = field.previousElementSibling.innerText;
-
-            if (field.getAttribute('id') === 'day') {
-                const valueOfday = this.form.querySelector('#day');
-                if (valueOfday.value.length !== 2 || valueOfday.value < 1 || valueOfday.value > 31) {
-                    valid = false;
-                    this.createError(field, `O campo ${label} está inválido`);
-                }
-            }
-
-            if (field.getAttribute('id') === 'month') {
-                const valueOfMonth = this.form.querySelector('#month');
-                if (valueOfMonth.value.length !== 2 || valueOfMonth.value < 1 || valueOfMonth.value > 12) {
-                    valid = false;
-                    this.createError(field, `O campo ${label} está inválido`);
-                }
-            }
-
-            if (field.getAttribute('id') === 'year') {
-                const valueOfYear = this.form.querySelector('#year');
-                if (valueOfYear.value.length !== 4 || valueOfYear.value > this.currentDate) {
-                    valid = false;
-                    this.createError(field, `O campo ${label} está inválido`);
-                }
-            }
-        }
-
-        return valid;
-    };
 
     dateBrIsValid() {
         let valid = true;
@@ -112,24 +74,26 @@ class Age {
         });
 
         let regex = /^(\d{2})\/(\d{2})\/(\d{4})$/;
-        const currentDate = new Date().getFullYear();
         if (!regex.test(dateBr)) {
             valid = false;
-            return false; // não corresponde ao formato dd-mm-aaaa
+            return this.createError(this.form.querySelector('#day'), 'data invalida'); // não corresponde ao formato dd-mm-aaaa
         };
 
-        let dateParts = dateBr.split("-");
+        const currentDate = new Date();
+
+        let dateParts = dateBr.split("/");
         let day = parseInt(dateParts[0]);
         let month = parseInt(dateParts[1]);
         let year = parseInt(dateParts[2]);
+        console.log(typeof day);
 
-        if (year < 0 || year > currentDate) {
+        if (year < 0 || year > currentDate.getFullYear()) {
             valid = false;
-            return false; // ano deve estar entre 00 e 99
+            return this.createError(this.form.querySelector('#year'), 'Invalid year field'); // ano deve estar entre 00 e 99
         };
         if (month < 1 || month > 12) {
             valid = false;
-            return false; // mês deve estar entre 01 e 12
+            return this.createError(this.form.querySelector('#month'), 'Invalid month field'); // mês deve estar entre 01 e 12
         };
         if (day < 1 || day > 31) {
             valid = false;
@@ -150,9 +114,6 @@ class Age {
     };
 
     calculateAge(dateOfBirth) {
-        //Pode ser que esteja dando problema no ano bissesto
-        //importar biblioteca date-fns para tentar resolver o problema
-        //aplicar responsividade ao projeto
         dateOfBirth.toLocaleDateString('pt-br', {
             day: "2-digit",
             month: "2-digit",
@@ -160,18 +121,27 @@ class Age {
             timeZone: 'America/Sao_Paulo'
         });
 
-        console.log(dateOfBirth);
-        const ageDiffMs = Date.now() - dateOfBirth.getTime();
-        const ageDate = new Date(ageDiffMs);
-        const age = {
-            years: Math.floor((ageDate / (365.25 * 24 * 60 * 60 * 1000))),
+        const currentDate = new Date();
 
-            months: Math.floor(((ageDate % (365.25 * 24 * 60 * 60 * 1000)) / (30.44 * 24 * 60 * 60 * 1000))),
+        const currentYear = currentDate.getFullYear();
+        const currentMonth = currentDate.getMonth() + 1;
+        const currentDay = currentDate.getDate();
+        
+        const yearOfBirth = dateOfBirth.getFullYear();
+        const monthOfBirth = dateOfBirth.getMonth() + 1;
+        const dayOfBirth = dateOfBirth.getDate(); 
 
-            days: Math.floor(((ageDate % (30.44 * 24 * 60 * 60 * 1000)) / (24 * 60 * 60 * 1000)))
+        const absoluteMonth = currentMonth - monthOfBirth;
+        const absoluteDay = currentDay - dayOfBirth;
 
+        const results = {
+            year: currentYear - yearOfBirth,
+            month: Math.abs(absoluteMonth),
+            day: Math.abs(absoluteDay)
         }
-        const ageArr = Object.values(age);
+        
+
+        const ageArr = Object.values(results);
         console.log(ageArr);
         return ageArr;
     };
