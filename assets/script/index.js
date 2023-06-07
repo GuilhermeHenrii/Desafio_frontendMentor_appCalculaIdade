@@ -150,6 +150,9 @@ class Age {
     };
 
     calculateAge(dateOfBirth) {
+        //Pode ser que esteja dando problema no ano bissesto
+        //importar biblioteca date-fns para tentar resolver o problema
+        //aplicar responsividade ao projeto
         dateOfBirth.toLocaleDateString('pt-br', {
             day: "2-digit",
             month: "2-digit",
