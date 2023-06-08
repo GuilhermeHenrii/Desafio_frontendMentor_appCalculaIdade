@@ -17,7 +17,7 @@ class Age {
         const day = this.form.querySelector('#day');
         const month = this.form.querySelector('#month');
         const year = this.form.querySelector('#year');
-        this.acceptedDate = new Date(`${year.value}-${month.value}-${day.value}T00:00:00-03:00`);
+        this.acceptedDate = new Date(`${year.value}-${month.value}-${day.value}`);//T00:00:00-03:00
 
         const fieldEmpty = this.fieldIsEmpty();
         if (!fieldEmpty) return;
@@ -85,7 +85,6 @@ class Age {
         let day = parseInt(dateParts[0]);
         let month = parseInt(dateParts[1]);
         let year = parseInt(dateParts[2]);
-        console.log(typeof day);
 
         if (year < 0 || year > currentDate.getFullYear()) {
             valid = false;
@@ -114,34 +113,42 @@ class Age {
     };
 
     calculateAge(dateOfBirth) {
-        dateOfBirth.toLocaleDateString('pt-br', {
-            day: "2-digit",
-            month: "2-digit",
-            year: "numeric",
-            timeZone: 'America/Sao_Paulo'
-        });
+        //o erro esta nesse método
+        //preciso fazer esse calculo de maneira precisa
+        //pesquisar sobre no yt
 
         const currentDate = new Date();
+        const dtBirth = new Date(dateOfBirth);
 
-        const currentYear = currentDate.getFullYear();
-        const currentMonth = currentDate.getMonth() + 1;
-        const currentDay = currentDate.getDate();
+        const difference = currentDate - dtBirth;
+        const dtAge = difference - new Date('1970-01-01T00:00:00');
+
+        console.log(new Date(dtAge));
+
+        const age = {};
+        age.year = Math.floor(difference / (1000 * 60 * 60 * 24 * 365.25));
+        age.month = Math.floor((difference / (1000 * 60 * 60 * 24 * (365.25/12))));
+        age.day = Math.floor((difference % (1000 * 60 * 60 * 24 * (365.25 / 12))) / (1000 * 60 * 60 * 24));
+
+        // const currentYear = currentDate.getFullYear();
+        // const currentMonth = currentDate.getMonth() + 1;
+        // const currentDay = currentDate.getDate();
         
-        const yearOfBirth = dateOfBirth.getFullYear();
-        const monthOfBirth = dateOfBirth.getMonth() + 1;
-        const dayOfBirth = dateOfBirth.getDate(); 
+        // const yearOfBirth = dateOfBirth.getFullYear();
+        // const monthOfBirth = dateOfBirth.getMonth() + 1;
+        // const dayOfBirth = dateOfBirth.getDate(); 
 
-        const absoluteMonth = currentMonth - monthOfBirth;
-        const absoluteDay = currentDay - dayOfBirth;
+        // const absoluteMonth = currentMonth - monthOfBirth;
+        // const absoluteDay = currentDay - dayOfBirth;
 
-        const results = {
-            year: currentYear - yearOfBirth,
-            month: Math.abs(absoluteMonth),
-            day: Math.abs(absoluteDay)
-        }
+        // const results = {
+        //     year: currentYear - yearOfBirth,
+        //     month: Math.abs(absoluteMonth),
+        //     day: Math.abs(absoluteDay)
+        // }
         
 
-        const ageArr = Object.values(results);
+        const ageArr = Object.values(age);
         console.log(ageArr);
         return ageArr;
     };
