@@ -1,0 +1,29 @@
+{
+  "name": "desafio_frontendmentor_appcalculaidade",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GuilhermeHenrii/Desafio_frontendMentor_appCalculaIdade.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GuilhermeHenrii/Desafio_frontendMentor_appCalculaIdade/issues"
+  },
+  "homepage": "https://github.com/GuilhermeHenrii/Desafio_frontendMentor_appCalculaIdade#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.22.5",
+    "@babel/core": "^7.22.5",
+    "@babel/preset-env": "^7.22.5",
+    "babel-loader": "^9.1.2",
+    "core-js": "^3.31.0",
+    "regenerator-runtime": "^0.13.11",
+    "webpack": "^5.87.0",
+    "webpack-cli": "^5.1.4"
+  }
+}
