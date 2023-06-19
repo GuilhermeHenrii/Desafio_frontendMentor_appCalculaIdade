@@ -14,9 +14,12 @@ module.exports = {
             use: {
                 loader: 'babel-loader',
                 options: {
-                    presents: ['@babel/env']
+                    presets: ['@babel/env']
                 }
             }
+        },{
+          test: /\.css$/,
+          use: ['style-loader', 'css-loader'] 
         }]
     },
     devtool: 'source-map'
