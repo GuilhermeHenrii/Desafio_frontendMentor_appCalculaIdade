@@ -51,7 +51,7 @@ body, html{
     /* background-color: blue; */
 }
 
-.input{
+.inputs{
     width: 100px;
     height: 30px;
     border-radius: 5px;
@@ -66,7 +66,7 @@ body, html{
     /* background-color: green; */
 }
 
-.input:focus{
+.inputs:focus{
     border-color: var(--Purple);
 }
 
