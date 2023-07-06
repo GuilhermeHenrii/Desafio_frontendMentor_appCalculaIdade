@@ -71,5 +71,6 @@ export function generatesError(field, text) {
     const div = document.createElement('div');
     div.classList.add('error-text');
     div.innerHTML = text;
+    field.classList.add('error-inputs');
     field.insertAdjacentElement('afterend', div);
 }

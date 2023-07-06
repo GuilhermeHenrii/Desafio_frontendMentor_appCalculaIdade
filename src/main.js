@@ -7,7 +7,7 @@ const year = document.querySelector('#year');
 
 document.addEventListener('click', (e) => {
     const el = e.target;
-    if(el.classList.contains('arrow')){
+    if(el.classList.contains('arrow') || el.classList.contains('arrow-image')){
         validateAge(year.value, month.value , day.value);
     }
 });

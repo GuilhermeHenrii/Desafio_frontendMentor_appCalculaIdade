@@ -164,6 +164,7 @@ function generatesError(field, text) {
   var div = document.createElement('div');
   div.classList.add('error-text');
   div.innerHTML = text;
+  field.classList.add('error-inputs');
   field.insertAdjacentElement('afterend', div);
 }
 
@@ -302,7 +303,7 @@ var year = document.querySelector('#year');
 
 document.addEventListener('click', function (e) {
   var el = e.target;
-  if (el.classList.contains('arrow')) {
+  if (el.classList.contains('arrow') || el.classList.contains('arrow-image')) {
     (0,_modules_validatesDate__WEBPACK_IMPORTED_MODULE_0__.validateAge)(year.value, month.value, day.value);
   }
 });
