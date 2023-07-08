@@ -43,7 +43,7 @@ export default function handleErrors() {
             };
 
             if (field === inputs[1] && ((parseInt(month.value) === 4 || parseInt(month.value) === 6 || parseInt(month.value) === 9 || parseInt(month.value) === 11) && parseInt(day.value) > 30)) {
-                generatesError(field, `${label} mes com 30 dias`); // meses com 30 dias
+                generatesError(field, `${label} Month with 30 days`); // meses com 30 dias
                 return valid = false;
             }
 
@@ -51,12 +51,12 @@ export default function handleErrors() {
                 let leapYear = parseInt(year.value) % 4 === 0 && (parseInt(year.value) % 100 !== 0 || parseInt(year.value) % 400 === 0);
 
                 if (leapYear && parseInt(day.value) > 29) {
-                    generatesError(field, `${label} fevereiro com 29 dias`); // fevereiro com 28 ou 29 dias
+                    generatesError(field, `${label} February with 29 days`); // fevereiro com 28 ou 29 dias
                     return valid = false;
                 }
 
                 if (!leapYear && parseInt(day.value) > 28) {
-                    generatesError(field, `${label} fevereiro com 28 dias`);
+                    generatesError(field, `${label} February with 28 days`);
                     return valid = false;
                 }
             }

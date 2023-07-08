@@ -19,6 +19,12 @@ export function validateAge(year, month, day){
         errorTxt.remove();
     }
 
+
+    for(let errorInput of form.querySelectorAll('.error-inputs')){
+        errorInput.classList.remove('error-inputs');
+    }
+
+
     if(inputDay.value.length < 2 || inputDay.value.length > 2){
         return generatesError(inputDay, `Day invalid`);
     }

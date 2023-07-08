@@ -133,17 +133,17 @@ function handleErrors() {
         }
         ;
         if (field === inputs[1] && (parseInt(month.value) === 4 || parseInt(month.value) === 6 || parseInt(month.value) === 9 || parseInt(month.value) === 11) && parseInt(day.value) > 30) {
-          generatesError(field, "".concat(label, " mes com 30 dias")); // meses com 30 dias
+          generatesError(field, "".concat(label, " Month with 30 days")); // meses com 30 dias
           return valid = false;
         }
         if (field === inputs[1] && parseInt(month.value) === 2) {
           var leapYear = parseInt(year.value) % 4 === 0 && (parseInt(year.value) % 100 !== 0 || parseInt(year.value) % 400 === 0);
           if (leapYear && parseInt(day.value) > 29) {
-            generatesError(field, "".concat(label, " fevereiro com 29 dias")); // fevereiro com 28 ou 29 dias
+            generatesError(field, "".concat(label, " February with 29 days")); // fevereiro com 28 ou 29 dias
             return valid = false;
           }
           if (!leapYear && parseInt(day.value) > 28) {
-            generatesError(field, "".concat(label, " fevereiro com 28 dias"));
+            generatesError(field, "".concat(label, " February with 28 days"));
             return valid = false;
           }
         }
@@ -213,6 +213,18 @@ function validateAge(year, month, day) {
     _iterator.e(err);
   } finally {
     _iterator.f();
+  }
+  var _iterator2 = _createForOfIteratorHelper(_handleErros__WEBPACK_IMPORTED_MODULE_0__.form.querySelectorAll('.error-inputs')),
+    _step2;
+  try {
+    for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+      var errorInput = _step2.value;
+      errorInput.classList.remove('error-inputs');
+    }
+  } catch (err) {
+    _iterator2.e(err);
+  } finally {
+    _iterator2.f();
   }
   if (_handleErros__WEBPACK_IMPORTED_MODULE_0__.day.value.length < 2 || _handleErros__WEBPACK_IMPORTED_MODULE_0__.day.value.length > 2) {
     return (0,_handleErros__WEBPACK_IMPORTED_MODULE_0__.generatesError)(_handleErros__WEBPACK_IMPORTED_MODULE_0__.day, "Day invalid");
