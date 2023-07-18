@@ -47,6 +47,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       for (_iterator.s(); !(_step = _iterator.n()).done;) {
         var _showAge = _step.value;
         _showAge.innerHTML = ageArr[i];
+        _showAge.classList.add('result-color');
         i++;
       }
     } catch (err) {

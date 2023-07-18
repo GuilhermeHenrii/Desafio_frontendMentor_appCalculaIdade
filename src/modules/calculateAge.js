@@ -32,6 +32,7 @@ export default function () {
 
         for(let showAge of ageList){
             showAge.innerHTML = ageArr[i];
+            showAge.classList.add('result-color');
             i++;
         }
     }
