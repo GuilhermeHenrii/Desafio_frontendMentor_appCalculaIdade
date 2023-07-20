@@ -1,135 +1,17 @@
-:root{
-    --White: hsl(0, 0%, 100%);
-    --Off-white: hsl(0, 0%, 94%);
-    --Light-grey: hsl(0, 0%, 86%);
-    --Smokey-grey: hsl(0, 1%, 44%);
-    --Off-black: hsl(0, 0%, 8%);
-    --Purple: hsl(259, 100%, 65%);
-    --Light-red: hsl(0, 100%, 67%);
-}
+@charset "UTF-8";
 
-
-*{
-    box-sizing: border-box;
-    margin: 0px;
-    padding: 0px;
-}
-
-body, html{
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    background-color: var(--Light-grey);
-}
-
-.card{
-    background-color: var(--White);
-    width: 45%;
-    height: clamp(200px, 65%, 400px);
-    position: relative;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border-radius: 15px;
-    border-bottom-right-radius: clamp(80px, 30%, 150px);
-}
-
-
-@media (max-width: 450px ) {
-    .card{
-        width: 80%;
+@media screen and (min-width: 768px) and (max-width: 992px) {
+    html{
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
-}
 
+    .card{
+        width: 70%;
+    }
 
-.form{
-    display: flex;
-    flex-direction: row;
-    justify-content: start;
-    flex-wrap: wrap;
-    margin-bottom: 10px;
-}
-
-.label-group-one, .label-group-two, .label-group-thre{
-    display: block;
-    margin-top: 25px;
-    margin-left: 5%;
-    width: 20%;
-}
-
-.inputs{
-    width: 100%;
-    height: 30px;
-    border-radius: 5px;
-    border-color: var(--Light-grey);
-    border-style: solid;
-    border-width: 0.5px;
-    outline: none;
-    margin-top: 6px;
-    font-size: 2vw;
-    font-weight: 600;
-    padding-left: 10px;
-}
-
-.inputs:focus{
-    border-color: var(--Purple);
-}
-
-.line{
-    display: inline-block;
-    background-color: var(--Light-grey);
-    width: 70%;
-    height: 1px;
-    margin-top: 4%;
-    margin-left: 5%;
-}
-
-.arrow{
-    display: inline-block;
-    background-color: var(--Purple);
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    position: absolute;
-    cursor: pointer;
-}
-
-.arrow-image{
-    position: relative;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 70%;
-    
-}
-
-.age-result{
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    margin-left: 5%;
-    font-size: 200%;
-    width: 90%;
-    height: 55%;
-    overflow: hidden;
-}
-
-
-.dynamic-text{
-    width: 100%;
-    height: 100%;
-}
-
-.result-color{
-    color: var(--Purple);
-}
-
-.error-inputs{
-    border-color: var(--Light-red);
-}
-
-.error-text{
-    color: rgb(211, 52, 52);
-    font-size: 15px;
-
+    .age-result{
+        margin-left: 55px;
+    }
 }
