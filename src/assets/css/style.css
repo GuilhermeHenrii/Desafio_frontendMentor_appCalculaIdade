@@ -8,7 +8,7 @@
     }
 
     .card{
-        width: 70%;
+        width: 65%;
     }
 
     .age-result{
@@ -17,5 +17,30 @@
 }
 
 @media screen and (min-width: 992px) {
-    
+    html{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .card{
+        width: 600px;
+        height: 450px;
+    }
+
+    .inputs{
+        width: 110px;
+        height: 60px;
+        font-size: 26px;
+    }
+
+    .age-result{
+        margin-left: 65px;
+    }
+
+    .line{
+        width: 90%;
+        justify-content: end;
+        margin-left: 48px;
+        margin-top: 60px;
+    }
 }
