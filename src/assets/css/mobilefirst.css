@@ -29,8 +29,8 @@ html{
     flex-direction:column;
     align-items: start;
     background-color: var(--White);
-    width: 80vw;
-    height: 70vh;
+    width: 270px;
+    height: 500px;
     margin: auto;
     margin-top: 30px;
     border-radius: 20px;
