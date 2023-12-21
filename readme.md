@@ -6,7 +6,7 @@ O objetivo desse aplicativo é informar para o usuário qaal o seu tempo de vida
 Usei JavaScript vanila e foi um tanto qanto desafiador trabalhar com datas, mas com muita determinação eu consegui. Gostei do resultado final e ficou bem similar ao proposto na plataforma Frontende Mentor.
 
 ## Layout mobile
-![Mobile 1](./public/assets/images/calcula-idade-mobile.PNG) ![Mobile 2](./public/assets/images/calcula-idade-mobile2.PNG.PNG)
+![Mobile 1](./public/assets/images/calcula-idade-mobile.PNG) ![Mobile 2](./public/assets/images/calcula-idade-mobile2.PNG)
 
 ## Layout web
 ![Web 1](./public/assets/images/calcula-idade-web.PNG)
