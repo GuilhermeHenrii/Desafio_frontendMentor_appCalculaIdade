@@ -13,6 +13,7 @@ export default function () {
     }
     
     if (ageDay < 0) {
+        // aqui pegamos o ultimo dia do mes anterior
         const lastMonth = new Date(today.getFullYear(), today.getMonth() - 1, 0);
         ageDay = lastMonth.getDate() - dateUser.getDate() + today.getDate();
         ageMonths--;
